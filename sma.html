@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMA Sifu Marketing Agency</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #413a5b; /* Dunkelviolett */
+            color: #ffffff; /* Weiß */
+        }
+        .ar-font {
+            font-family: 'Amiri', serif;
+        }
+        .text-farsi {
+            direction: rtl;
+        }
+    </style>
+</head>
+<body class="bg-[#413a5b] text-white">
+
+    <!-- Header mit Logo und Navigation -->
+    <header class="bg-[#2a253e] py-6 shadow-lg rounded-b-xl">
+        <div class="container mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center">
+                <!-- Logo -->
+                <img src="https://placehold.co/1000x1000/000000/ffffff/png?text=SMA+Sifu+Marketing+Agency" alt="SMA Sifu Marketing Agency Logo" class="h-16 w-16 md:h-20 md:w-20 rounded-full mr-4 shadow-lg">
+                <h1 class="text-2xl md:text-3xl font-bold text-[#f9bc1c]">SMA Sifu Marketing Agency</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#pakete" class="hover:text-[#f9bc1c] transition-colors font-medium">Pakete</a>
+                <a href="#kontakt" class="hover:text-[#f9bc1c] transition-colors font-medium">Kontakt</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-[#f9bc1c] focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        <!-- Mobiles Menü (ausgeblendet) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#2a253e] mt-4 rounded-b-lg">
+            <nav class="flex flex-col items-center py-4 space-y-4">
+                <a href="#pakete" class="hover:text-[#f9bc1c] transition-colors font-medium">Pakete</a>
+                <a href="#kontakt" class="hover:text-[#f9bc1c] transition-colors font-medium">Kontakt</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sprachauswahl -->
+    <div class="flex justify-center my-8 space-x-4">
+        <img src="https://flagcdn.com/de.svg" class="h-8 cursor-pointer rounded-md shadow-lg" onclick="setLanguage('de')" alt="Deutsche Flagge" title="Deutsch">
+        <img src="https://flagcdn.com/gb.svg" class="h-8 cursor-pointer rounded-md shadow-lg" onclick="setLanguage('en')" alt="Britische Flagge" title="Englisch">
+        <img src="https://flagcdn.com/eg.svg" class="h-8 cursor-pointer rounded-md shadow-lg" onclick="setLanguage('ar')" alt="Ägyptische Flagge" title="Ägyptisch">
+    </div>
+
+    <!-- Hero Sektion (Platzhalter, da der Inhalt je nach Sprache variiert) -->
+    <section id="hero-section" class="py-20 text-center">
+        <!-- Inhalt wird dynamisch geladen -->
+    </section>
+
+    <!-- Paket-Sektion (Platzhalter) -->
+    <section id="pakete" class="py-20 bg-[#2a253e] rounded-xl shadow-inner">
+        <div id="packages-content" class="container mx-auto px-6">
+            <!-- Inhalt wird dynamisch geladen -->
+        </div>
+    </section>
+
+    <!-- Kontakt-Sektion (Platzhalter) -->
+    <section id="kontakt-section" class="py-20 text-center">
+        <!-- Inhalt wird dynamisch geladen -->
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#2a253e] py-6 rounded-t-xl shadow-lg text-center">
+        <p class="text-sm text-gray-400">&copy; 2025 SMA Sifu Marketing Agency. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            de: {
+                hero_title: "Wir bringen Ihr Geschäft online zum Glänzen.",
+                hero_subtitle: "SMA Sifu Marketing Agency bietet maßgeschneiderte Lösungen, um Ihre Marke zu stärken und Ihr Wachstum voranzutreiben.",
+                hero_button: "Unsere Pakete entdecken",
+                packages_title: "Unsere Online-Marketing-Pakete",
+                package1_title: "Paket 1: \"Done-for-you\"",
+                package1_desc: "Wir übernehmen die gesamte Strategie und Umsetzung für Sie.",
+                package1_list1: "Zielgruppenanalyse & Strategie",
+                package1_list2: "Umfassender Umsetzungsplan",
+                package1_list3: "Vollständige Umsetzung",
+                package2_title: "Paket 2: \"Strategie & Analyse\"",
+                package2_desc: "Wir analysieren Ihre Kanäle und erstellen eine umfassende Strategie.",
+                package2_list1: "Umfassende Kanalanalyse",
+                package2_list2: "Detaillierte Marketing-Strategie",
+                package2_list3: "Umsetzungsplan",
+                package3_title: "Paket 3: \"Strategie-Grundlage\"",
+                package3_desc: "Perfekt für einen schnellen Start mit einem klaren Plan.",
+                package3_list1: "Detaillierter Kanal-Plan",
+                package3_list2: "Schritt-für-Schritt-Anleitung",
+                package3_list3: "Self-Service Umsetzung",
+                contact_title: "Bereit für den nächsten Schritt?",
+                contact_subtitle: "Kontaktieren Sie uns für eine kostenlose Beratung und erfahren Sie, wie wir Ihr Geschäft transformieren können.",
+                contact_button: "Jetzt kontaktieren"
+            },
+            en: {
+                hero_title: "We make your business shine online.",
+                hero_subtitle: "SMA Sifu Marketing Agency offers tailored solutions to strengthen your brand and drive your growth.",
+                hero_button: "Discover Our Packages",
+                packages_title: "Our Online Marketing Packages",
+                package1_title: "Package 1: \"Done-for-you\"",
+                package1_desc: "We handle the entire strategy and execution for you.",
+                package1_list1: "Target Audience Analysis & Strategy",
+                package1_list2: "Comprehensive Implementation Plan",
+                package1_list3: "Full Execution",
+                package2_title: "Package 2: \"Strategy & Analysis\"",
+                package2_desc: "We analyze your channels and create a comprehensive strategy.",
+                package2_list1: "Comprehensive Channel Analysis",
+                package2_list2: "Detailed Marketing Strategy",
+                package2_list3: "Implementation Plan",
+                package3_title: "Package 3: \"Strategy Foundation\"",
+                package3_desc: "Perfect for a quick start with a clear plan.",
+                package3_list1: "Detailed Channel Plan",
+                package3_list2: "Step-by-step Guide",
+                package3_list3: "Self-service Implementation",
+                contact_title: "Ready for the next step?",
+                contact_subtitle: "Contact us for a free consultation and find out how we can transform your business.",
+                contact_button: "Contact Us Now"
+            },
+            ar: {
+                hero_title: "نجعل عملك يتألق عبر الإنترنت.",
+                hero_subtitle: "تقدم وكالة SMA Sifu Marketing حلولًا مصممة خصيصًا لتقوية علامتك التجارية ودفع نموك.",
+                hero_button: "اكتشف باقاتنا",
+                packages_title: "باقات التسويق الرقمي",
+                package1_title: "الباقة 1: \"مهمة مُنجزة\"",
+                package1_desc: "نتولى الإستراتيجية والتنفيذ بالكامل نيابة عنك.",
+                package1_list1: "تحليل الجمهور المستهدف والإستراتيجية",
+                package1_list2: "خطة تنفيذ شاملة",
+                package1_list3: "تنفيذ كامل",
+                package2_title: "الباقة 2: \"إستراتيجية وتحليل\"",
+                package2_desc: "نقوم بتحليل قنواتك ووضع إستراتيجية شاملة.",
+                package2_list1: "تحليل شامل للقنوات",
+                package2_list2: "إستراتيجية تسويق مفصلة",
+                package2_list3: "خطة التنفيذ",
+                package3_title: "الباقة 3: \"الأساس الإستراتيجي\"",
+                package3_desc: "مثالية للبدء السريع بخطة واضحة.",
+                package3_list1: "خطة قناة مفصلة",
+                package3_list2: "دليل خطوة بخطوة",
+                package3_list3: "التنفيذ الذاتي",
+                contact_title: "جاهز للخطوة التالية؟",
+                contact_subtitle: "اتصل بنا للحصول على استشارة مجانية واكتشف كيف يمكننا تغيير عملك.",
+                contact_button: "اتصل بنا الآن"
+            }
+        };
+
+        const packages = {
+            package1_price: "120.000 EGP",
+            package2_price: "50.000 EGP",
+            package3_price: "2.000 EGP"
+        };
+
+        const setLanguage = (lang) => {
+            const translation = translations[lang];
+            const isRTL = (lang === 'ar');
+
+            document.getElementById('hero-section').innerHTML = `
+                <div class="container mx-auto px-6 ${isRTL ? 'text-right ar-font' : 'text-center'}" dir="${isRTL ? 'rtl' : 'ltr'}">
+                    <h2 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">${translation.hero_title}</h2>
+                    <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">${translation.hero_subtitle}</p>
+                    <a href="#pakete" class="bg-[#f9bc1c] text-[#413a5b] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-400 transition-colors">${translation.hero_button}</a>
+                </div>
+            `;
+
+            document.getElementById('packages-content').innerHTML = `
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 ${isRTL ? 'ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">${translation.packages_title}</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Paket 1 -->
+                    <div class="bg-[#413a5b] p-8 rounded-2xl shadow-xl border border-[#f9bc1c] ${isRTL ? 'text-right ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">
+                        <h3 class="text-2xl font-bold mb-4 text-[#f9bc1c]">${translation.package1_title}</h3>
+                        <p class="text-gray-300 mb-6">${translation.package1_desc}</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package1_list1}</li>
+                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package1_list2}</li>
+                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package1_list3}</li>
+                        </ul>
+                        <p class="text-3xl font-bold text-[#f9bc1c]">${packages.package1_price}</p>
+                    </div>
+                    <!-- Paket 2 -->
+                    <div class="bg-[#413a5b] p-8 rounded-2xl shadow-xl border border-gray-400 ${isRTL ? 'text-right ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">
+                        <h3 class="text-2xl font-bold mb-4">${translation.package2_title}</h3>
+                        <p class="text-gray-300 mb-6">${translation.package2_desc}</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package2_list1}</li>
+                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package2_list2}</li>
+                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package2_list3}</li>
+                        </ul>
+                        <p class="text-3xl font-bold">${packages.package2_price}</p>
+                    </div>
+                    <!-- Paket 3 -->
+                    <div class="bg-[#413a5b] p-8 rounded-2xl shadow-xl border border-gray-400 ${isRTL ? 'text-right ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">
+                        <h3 class="text-2xl font-bold mb-4">${translation.package3_title}</h3>
+                        <p class="text-gray-300 mb-6">${translation.package3_desc}</p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package3_list1}</li>
+                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package3_list2}</li>
+                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package3_list3}</li>
+                        </ul>
+                        <p class="text-3xl font-bold">${packages.package3_price}</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('kontakt-section').innerHTML = `
+                <div class="container mx-auto px-6 ${isRTL ? 'text-right ar-font' : 'text-center'}" dir="${isRTL ? 'rtl' : 'ltr'}">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">${translation.contact_title}</h2>
+                    <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">${translation.contact_subtitle}</p>
+                    <a href="mailto:info@sma-sifumarketing.de" class="bg-[#f9bc1c] text-[#413a5b] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-400 transition-colors">${translation.contact_button}</a>
+                </div>
+            `;
+
+            document.documentElement.lang = lang;
+        };
+
+        // Initialer Ladezustand
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage('de');
+        });
+
+        // Mobiles Menü
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(item => {
+            item.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
