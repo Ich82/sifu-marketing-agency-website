@@ -32,8 +32,8 @@
                 <h1 class="text-2xl md:text-3xl font-bold text-[#f9bc1c]">SMA Sifu Marketing Agency</h1>
             </div>
             <nav class="hidden md:flex space-x-6">
-                <a href="#pakete" class="hover:text-[#f9bc1c] transition-colors font-medium">Pakete</a>
-                <a href="#kontakt" class="hover:text-[#f9bc1c] transition-colors font-medium">Kontakt</a>
+                <a id="nav-pakete" href="#pakete" class="hover:text-[#f9bc1c] transition-colors font-medium"></a>
+                <a id="nav-kontakt" href="#kontakt-section" class="hover:text-[#f9bc1c] transition-colors font-medium"></a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden text-[#f9bc1c] focus:outline-none">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -44,8 +44,8 @@
         <!-- Mobiles Menü (ausgeblendet) -->
         <div id="mobile-menu" class="hidden md:hidden bg-[#2a253e] mt-4 rounded-b-lg">
             <nav class="flex flex-col items-center py-4 space-y-4">
-                <a href="#pakete" class="hover:text-[#f9bc1c] transition-colors font-medium">Pakete</a>
-                <a href="#kontakt" class="hover:text-[#f9bc1c] transition-colors font-medium">Kontakt</a>
+                <a id="mobile-nav-pakete" href="#pakete" class="hover:text-[#f9bc1c] transition-colors font-medium"></a>
+                <a id="mobile-nav-kontakt" href="#kontakt-section" class="hover:text-[#f9bc1c] transition-colors font-medium"></a>
             </nav>
         </div>
     </header>
@@ -80,8 +80,13 @@
     </footer>
 
     <script>
+        // Deine WhatsApp-Nummer hier eintragen (inkl. Ländercode, ohne + oder Leerzeichen)
+        const whatsappNumber = "201015347162"; 
+
         const translations = {
             de: {
+                header_pakete: "Pakete",
+                header_kontakt: "Kontakt",
                 hero_title: "Wir bringen Ihr Geschäft online zum Glänzen.",
                 hero_subtitle: "SMA Sifu Marketing Agency bietet maßgeschneiderte Lösungen, um Ihre Marke zu stärken und Ihr Wachstum voranzutreiben.",
                 hero_button: "Unsere Pakete entdecken",
@@ -100,12 +105,17 @@
                 package3_desc: "Perfekt für einen schnellen Start mit einem klaren Plan.",
                 package3_list1: "Detaillierter Kanal-Plan",
                 package3_list2: "Schritt-für-Schritt-Anleitung",
-                package3_list3: "Self-Service Umsetzung",
+                package3_list3: "Self-service Umsetzung",
                 contact_title: "Bereit für den nächsten Schritt?",
                 contact_subtitle: "Kontaktieren Sie uns für eine kostenlose Beratung und erfahren Sie, wie wir Ihr Geschäft transformieren können.",
-                contact_button: "Jetzt kontaktieren"
+                contact_button: "Jetzt kontaktieren",
+                package_button: "Jetzt anfragen",
+                whatsapp_message_general: "Hallo, ich bin an den Dienstleistungen von SMA Sifu Marketing Agency interessiert.",
+                whatsapp_message_package: "Hallo, ich bin an Ihrem Paket \"%s\" interessiert."
             },
             en: {
+                header_pakete: "Packages",
+                header_kontakt: "Contact",
                 hero_title: "We make your business shine online.",
                 hero_subtitle: "SMA Sifu Marketing Agency offers tailored solutions to strengthen your brand and drive your growth.",
                 hero_button: "Discover Our Packages",
@@ -127,9 +137,14 @@
                 package3_list3: "Self-service Implementation",
                 contact_title: "Ready for the next step?",
                 contact_subtitle: "Contact us for a free consultation and find out how we can transform your business.",
-                contact_button: "Contact Us Now"
+                contact_button: "Contact Us Now",
+                package_button: "Inquire Now",
+                whatsapp_message_general: "Hello, I am interested in the services of SMA Sifu Marketing Agency.",
+                whatsapp_message_package: "Hello, I am interested in your \"%s\" package."
             },
             ar: {
+                header_pakete: "باقات",
+                header_kontakt: "اتصل",
                 hero_title: "نجعل عملك يتألق عبر الإنترنت.",
                 hero_subtitle: "تقدم وكالة SMA Sifu Marketing حلولًا مصممة خصيصًا لتقوية علامتك التجارية ودفع نموك.",
                 hero_button: "اكتشف باقاتنا",
@@ -144,14 +159,12 @@
                 package2_list1: "تحليل شامل للقنوات",
                 package2_list2: "إستراتيجية تسويق مفصلة",
                 package2_list3: "خطة التنفيذ",
-                package3_title: "الباقة 3: \"الأساس الإستراتيجي\"",
-                package3_desc: "مثالية للبدء السريع بخطة واضحة.",
-                package3_list1: "خطة قناة مفصلة",
-                package3_list2: "دليل خطوة بخطوة",
-                package3_list3: "التنفيذ الذاتي",
                 contact_title: "جاهز للخطوة التالية؟",
                 contact_subtitle: "اتصل بنا للحصول على استشارة مجانية واكتشف كيف يمكننا تغيير عملك.",
-                contact_button: "اتصل بنا الآن"
+                contact_button: "اتصل بنا الآن",
+                package_button: "استفسر الآن",
+                whatsapp_message_general: "مرحبا، أنا مهتم بخدمات وكالة SMA Sifu Marketing Agency.",
+                whatsapp_message_package: "مرحبا، أنا مهتم بالباقة \"%s\"."
             }
         };
 
@@ -161,9 +174,20 @@
             package3_price: "2.000 EGP"
         };
 
+        function getWhatsappLink(message) {
+            const encodedMessage = encodeURIComponent(message);
+            return `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        }
+
         const setLanguage = (lang) => {
             const translation = translations[lang];
             const isRTL = (lang === 'ar');
+
+            // Update header navigation links
+            document.getElementById('nav-pakete').textContent = translation.header_pakete;
+            document.getElementById('nav-kontakt').textContent = translation.header_kontakt;
+            document.getElementById('mobile-nav-pakete').textContent = translation.header_pakete;
+            document.getElementById('mobile-nav-kontakt').textContent = translation.header_kontakt;
 
             document.getElementById('hero-section').innerHTML = `
                 <div class="container mx-auto px-6 ${isRTL ? 'text-right ar-font' : 'text-center'}" dir="${isRTL ? 'rtl' : 'ltr'}">
@@ -177,37 +201,52 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 ${isRTL ? 'ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">${translation.packages_title}</h2>
                 <div class="grid md:grid-cols-3 gap-8">
                     <!-- Paket 1 -->
-                    <div class="bg-[#413a5b] p-8 rounded-2xl shadow-xl border border-[#f9bc1c] ${isRTL ? 'text-right ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">
-                        <h3 class="text-2xl font-bold mb-4 text-[#f9bc1c]">${translation.package1_title}</h3>
-                        <p class="text-gray-300 mb-6">${translation.package1_desc}</p>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package1_list1}</li>
-                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package1_list2}</li>
-                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package1_list3}</li>
-                        </ul>
-                        <p class="text-3xl font-bold text-[#f9bc1c]">${packages.package1_price}</p>
+                    <div class="bg-[#413a5b] p-8 rounded-2xl shadow-xl border border-[#f9bc1c] flex flex-col justify-between ${isRTL ? 'text-right ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-[#f9bc1c]">${translation.package1_title}</h3>
+                            <p class="text-gray-300 mb-6">${translation.package1_desc}</p>
+                            <ul class="space-y-3 mb-6">
+                                <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package1_list1}</li>
+                                <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package1_list2}</li>
+                                <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package1_list3}</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto">
+                             <p class="text-3xl font-bold text-[#f9bc1c] mb-4">${packages.package1_price}</p>
+                             <a href="${getWhatsappLink(translation.whatsapp_message_package.replace('%s', translation.package1_title))}" target="_blank" class="block text-center bg-[#f9bc1c] text-[#413a5b] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-400 transition-colors">${translation.package_button}</a>
+                        </div>
                     </div>
                     <!-- Paket 2 -->
-                    <div class="bg-[#413a5b] p-8 rounded-2xl shadow-xl border border-gray-400 ${isRTL ? 'text-right ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">
-                        <h3 class="text-2xl font-bold mb-4">${translation.package2_title}</h3>
-                        <p class="text-gray-300 mb-6">${translation.package2_desc}</p>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package2_list1}</li>
-                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package2_list2}</li>
-                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package2_list3}</li>
-                        </ul>
-                        <p class="text-3xl font-bold">${packages.package2_price}</p>
+                    <div class="bg-[#413a5b] p-8 rounded-2xl shadow-xl border border-gray-400 flex flex-col justify-between ${isRTL ? 'text-right ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">${translation.package2_title}</h3>
+                            <p class="text-gray-300 mb-6">${translation.package2_desc}</p>
+                            <ul class="space-y-3 mb-6">
+                                <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package2_list1}</li>
+                                <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package2_list2}</li>
+                                <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package2_list3}</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-3xl font-bold mb-4">${packages.package2_price}</p>
+                            <a href="${getWhatsappLink(translation.whatsapp_message_package.replace('%s', translation.package2_title))}" target="_blank" class="block text-center bg-[#f9bc1c] text-[#413a5b] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-400 transition-colors">${translation.package_button}</a>
+                        </div>
                     </div>
                     <!-- Paket 3 -->
-                    <div class="bg-[#413a5b] p-8 rounded-2xl shadow-xl border border-gray-400 ${isRTL ? 'text-right ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">
-                        <h3 class="text-2xl font-bold mb-4">${translation.package3_title}</h3>
-                        <p class="text-gray-300 mb-6">${translation.package3_desc}</p>
-                        <ul class="space-y-3 mb-6">
-                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package3_list1}</li>
-                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package3_list2}</li>
-                            <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package3_list3}</li>
-                        </ul>
-                        <p class="text-3xl font-bold">${packages.package3_price}</p>
+                    <div class="bg-[#413a5b] p-8 rounded-2xl shadow-xl border border-gray-400 flex flex-col justify-between ${isRTL ? 'text-right ar-font' : ''}" dir="${isRTL ? 'rtl' : 'ltr'}">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">${translation.package3_title}</h3>
+                            <p class="text-gray-300 mb-6">${translation.package3_desc}</p>
+                            <ul class="space-y-3 mb-6">
+                                <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package3_list1}</li>
+                                <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package3_list2}</li>
+                                <li class="flex items-center ${isRTL ? 'flex-row-reverse' : ''}"><svg class="w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'} text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>${translation.package3_list3}</li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto">
+                            <p class="text-3xl font-bold mb-4">${packages.package3_price}</p>
+                            <a href="${getWhatsappLink(translation.whatsapp_message_package.replace('%s', translation.package3_title))}" target="_blank" class="block text-center bg-[#f9bc1c] text-[#413a5b] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-400 transition-colors">${translation.package_button}</a>
+                        </div>
                     </div>
                 </div>
             `;
@@ -216,7 +255,7 @@
                 <div class="container mx-auto px-6 ${isRTL ? 'text-right ar-font' : 'text-center'}" dir="${isRTL ? 'rtl' : 'ltr'}">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">${translation.contact_title}</h2>
                     <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">${translation.contact_subtitle}</p>
-                    <a href="mailto:info@sma-sifumarketing.de" class="bg-[#f9bc1c] text-[#413a5b] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-400 transition-colors">${translation.contact_button}</a>
+                    <a href="${getWhatsappLink(translation.whatsapp_message_general)}" target="_blank" class="bg-[#f9bc1c] text-[#413a5b] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-400 transition-colors">${translation.contact_button}</a>
                 </div>
             `;
 
